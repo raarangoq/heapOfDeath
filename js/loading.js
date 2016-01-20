@@ -8,13 +8,6 @@ var text;
 loading = {
 	preload: function(){
 
-    game.time.events.add(2000, function () {       
-        text = game.add.text(20, 540, "Cargando..", 
-            { font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3 });
-    },this);
-
-//text = game.add.text(20, 540, 'Cargando...', { fontSize: '28px', fill: '#ffffff'});
-
     game.load.image('light', 'assets/pics/items/bombArrowItem.png');
     game.load.image('velocity', 'assets/pics/items/speedItem.png');
     game.load.image('shield', 'assets/pics/items/shield.png');
@@ -99,9 +92,13 @@ loading = {
 
 	
 	create: function(){
-		addKeyboard();
+        addKeyboard();
+    },
 
-		game.state.start('initMenu');
-		//game.state.start('end');
-	}
+    update: function(){
+        if(game.load.onLoadComplete){
+            loadingImage.destroy();
+            game.state.start('initMenu');
+        }
+    },
 }
