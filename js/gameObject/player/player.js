@@ -119,14 +119,14 @@ function hitPlayer(enemy){
 	
 	this.start_time_hit = game.time.time;
 	if(this.canMove){
-		if(enemy.key == 'scorpion' || enemy.key == 'light'){
+		if(enemy.key == 'scorpion'){
 			if(!this.shield.visible)
 				this.takeDamage(enemy.damage);
 			else
 				return;
 		}
-		else if(enemy.key == 'stone' || enemy.key == 'boss'){
-			this.takeDamage(stones.damage);
+		else if(enemy.key == 'light'){
+			this.takeDamage(enemy.damage);
 			this.shield.visible = false;
 
 			this.canMove = false;
@@ -174,7 +174,9 @@ function playerDies(timeOut){
 }
 
 function playerSetDrawOrder(){
-	inkImage.bringToTop();
+	this.bringToTop();
+	if(this.segment)
+		this.segment.bringToTop();
 }
 
 function movePlayerPlatformPosition(value){
@@ -193,8 +195,13 @@ function movePlayerPlatformPosition(value){
 
 // El movimiento del jugador mediante teclado
 function movePlayer(){
-	if(!this.canMove || game.physics.arcade.isPaused || flags['winState'])
+	if(game.physics.arcade.isPaused || flags['winState'])
 		return;
+
+	if (!this.canMove) {
+		this.timeOfLastMove = game.time.now;
+		return;
+	};
 
 	// Al presionar una tecla, el jugador se mueve y se activa una animacion
 	if(keyboard.leftKey()){
@@ -337,7 +344,7 @@ function setWinState(){
 	door.move();
 	
 	stones.callAll('kill');
-	scorpions.callAll('kill');
+	scorpions.setAlive(false);
 }
 
 function restartPlayer(){

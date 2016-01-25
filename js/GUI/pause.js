@@ -31,7 +31,8 @@ function pauseGame(){
 			gui.timeText.initLevelTime += (game.time.now - this.timeLastPause);
 			player.timeOfLastMove += (game.time.now - this.timeLastPause);
 
-			scorpions.forEachAlive(scorpions.addPauseTime, scorpions, game.time.now - this.timeLastPause);
+
+			scorpions.addPauseTime(game.time.now - this.timeLastPause);
 		}
 		else{
 			this.visible = true;

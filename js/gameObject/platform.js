@@ -9,6 +9,7 @@ function addPlatform(){
 
 	platform.update = updatePlatform;
 	platform.setAlive = setPlatformAlive;
+	platform.setDrawOrder = setPlatformDrawOrder;
 }
 
 
@@ -23,4 +24,8 @@ function setPlatformAlive(value){
 	else{
 		this.kill();
 	}
+}
+
+function setPlatformDrawOrder(){
+	this.bringToTop();
 }

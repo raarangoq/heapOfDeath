@@ -16,6 +16,7 @@ function addHeap(){
 	this.insert = insert;
 
 	this.moveNodes = moveHeapNodes;
+	this.setDrawOrder = setHeapDrawOrder;
 
 	this.toString = HeapToString;
 
@@ -99,5 +100,9 @@ function moveHeapNodes(i, x, y, height){
 		this.moveNodes(2*i, x - this.separation[height], y + 40, height - 1);
 	if(this.array[2*i + 1])
 		this.moveNodes(2*i + 1, x + this.separation[height], y + 40, height - 1);
-	
+}
+
+function setHeapDrawOrder() {
+	for(var i=1; i<= this.size; i++)
+		this.array[i].bringToTop();
 }

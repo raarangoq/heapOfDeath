@@ -60,7 +60,7 @@ function guiSetDrawOrder(){
 	this.items_bar.setDrawOrder();
 	this.lives_bar.setDrawOrder();
 	this.timeText.setDrawOrder();
-	scoreText.setDrawOrder();
+	this.scoreText.setDrawOrder();
 }
 
 function guiSetAlive(value){

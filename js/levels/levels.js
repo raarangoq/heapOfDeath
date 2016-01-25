@@ -23,6 +23,7 @@ endImage.visible = false;
 //    scorpions.reset();
 
     platform.setAlive(true);
+    hourGlass.revive();
 
     door.setAlive(true);
     door.reset();
@@ -52,10 +53,25 @@ game.time.advancedTiming = true;
         if (!flags['winState']){
             if (player.alive){
 
+            //    platform.setDrawOrder();
+                scorpions.setDrawOrder(false);
+                hourGlass.bringToTop();
+                heap.setDrawOrder();
+                scorpions.setDrawOrder(true);
+                player.setDrawOrder();
+                if(items)
+                    items.bringToTop();
+                gui.setDrawOrder();
+
+                scorpions.update();
                 
        //         game.physics.arcade.overlap(player, stones, this.playerHitStone, null, this);
-
-                game.physics.arcade.overlap(player, scorpions, this.playerHitScorpion, null, this);
+                for(var i=0; i<scorpions.array.length; i++){
+                    if(scorpions.array[i].alive){
+                        this.playerHitScorpion(scorpions.array[i]);
+                        this.attackHitScorpion(scorpions.array[i]);
+                    }
+                }
 
                 game.physics.arcade.overlap(player, items, this.setAbility, null, this);
 
@@ -64,7 +80,7 @@ game.time.advancedTiming = true;
                 }
 
                 
-                game.physics.arcade.overlap(player.attack, scorpions, this.attackHitScorpion, null, this);
+                
 
                 if( keyboard.enterKey() )
                     gui.pauseGame();
@@ -94,8 +110,11 @@ game.time.advancedTiming = true;
         }
     },
 
-    playerHitScorpion: function(player, scorpion){
-        if(Math.abs(player.platformPosition - scorpion.platformPosition) > 30)
+    playerHitScorpion: function(scorpion){
+        if(scorpion.distanceToPlayer() > 30)
+            return;
+
+        if(!game.physics.arcade.overlap(player, scorpion))
             return;
 
         if(scorpion.key == 'light'){
@@ -112,8 +131,11 @@ game.time.advancedTiming = true;
         }
     },
 
-    attackHitScorpion: function(attack, scorpion){
-        if(!player.is_attacking || Math.abs(player.platformPosition - scorpion.platformPosition) > 30)
+    attackHitScorpion: function(scorpion){
+        if(!player.is_attacking || scorpion.distanceToPlayer() > 30)
+            return;
+
+        if(!game.physics.arcade.overlap(player.attack, scorpion))
             return;
 
         scorpion.takeDamage(player.hitDamage);
@@ -187,7 +209,7 @@ game.time.advancedTiming = true;
     render: function() {
 
 textb.text = game.time.fps;
-text.text = player.body.y;
+text.text = player.platformPosition +'\n' + scorpions.array[0].platformPosition;
 
 
     },
@@ -205,6 +227,7 @@ text.text = player.body.y;
         }
 
         platform.setAlive(false);
+        hourGlass.kill();
         door.setAlive(false);
         boss.kill();
 

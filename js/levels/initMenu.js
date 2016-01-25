@@ -8,6 +8,7 @@ var flags = [];
 
 var wall;
 var ground;
+var hourGlass;
 var platform;
 var door;
 var stones;
@@ -55,14 +56,20 @@ initMenu = {
 	    addPlatform();
 	    platform.setAlive(false);
 
+	    hourGlass = game.add.sprite(400, 300, 'hourglass');
+	    hourGlass.anchor.setTo(0.5, 0.5);
+	    hourGlass.kill();
+
 	    door = addDoor();
 	    door.setAlive(false);
 
 //	    addStones();
 //	    stones.callAll('kill');
 
-	    addScorpions();
-	    scorpions.callAll('kill');
+	    scorpions = new addScorpionsGroup();
+	    scorpions.setAlive(false);
+
+
 
 	    this.addPlayerFloor();
 	    addPlayer();

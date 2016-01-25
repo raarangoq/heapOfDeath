@@ -29,6 +29,7 @@ loading = {
   
     game.load.image('background', 'assets/pics/background.png');
     game.load.image('ground', 'assets/pics/levels/ground.png');
+    game.load.image('hourglass', 'assets/pics/hourglass.png');
     game.load.image('door', 'assets/pics/levels/door.png');
     game.load.image('door-1', 'assets/pics/levels/door-1.png');
     game.load.image('door-2', 'assets/pics/levels/door-2.png');
