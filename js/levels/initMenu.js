@@ -109,8 +109,7 @@ text = game.add.text(20, 540, 'Cargando...', { fontSize: '16px', fill: '#ffffff'
 
 
 		heap = new addHeap();
-		heap.insert(16);
-		heap.insert(17);
+
 
 //		alert(heap.toString());
 	   

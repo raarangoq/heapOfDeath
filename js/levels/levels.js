@@ -28,6 +28,10 @@ endImage.visible = false;
     door.setAlive(true);
     door.reset();
 
+    heap.restart();
+//    heap.insert(16);
+//    heap.insert(17);
+
 //    items = addItem('light');
     
 
@@ -126,7 +130,7 @@ game.time.advancedTiming = true;
         player.touchingSegment = null;
 
         if(game.time.now - player.timeOfLastScorpionAttack > player.timeBetweenScorpionsAttacks){
-            player.hitPlayer(scorpion);
+        //    player.hitPlayer(scorpion);
             player.timeOfLastScorpionAttack = game.time.now;
         }
     },
@@ -138,7 +142,7 @@ game.time.advancedTiming = true;
         if(!game.physics.arcade.overlap(player.attack, scorpion))
             return;
 
-        scorpion.takeDamage(player.hitDamage);
+        scorpion.takeDamage(player.hitDamage, player.direction);
     },
 
     killBoss: function(boss, stone){
@@ -184,7 +188,7 @@ game.time.advancedTiming = true;
             }
             else if(game.time.now - timeOfWinState < 8000){
                 if(!flags['winAnimationPointB']){
-                    stones.startAvalanche();
+ //                   stones.startAvalanche();
                     flags['winAnimationPointB'] = true;
                 }
             }
@@ -209,7 +213,7 @@ game.time.advancedTiming = true;
     render: function() {
 
 textb.text = game.time.fps;
-text.text = player.platformPosition +'\n' + scorpions.array[0].platformPosition;
+text.text = scorpions.array[0].speed + '\n' + scorpions.array[0].canMove;
 
 
     },
@@ -235,8 +239,8 @@ text.text = player.platformPosition +'\n' + scorpions.array[0].platformPosition;
             items.destroy();
         items = null;
 
-        stones.reset();
-        stones.avalanche.visible = false;
+//        stones.reset();
+ //       stones.avalanche.visible = false;
         
         winImage.visible = false;
         endImage.visible = false;

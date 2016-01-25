@@ -306,7 +306,11 @@ function updatePlayer(){
 					this.segment.die();
 					this.segment = null;
 					this.touchingSegment = null;
-					heap.insert(heap.array[1].id - 1);
+					var id = heap.takeId();
+					heap.insert(id);
+
+					if(heap.size == heap.poolLenght[game.global.level])
+						this.setWinState();
 				}
 			}
 			else if(this.touchingSegment){
@@ -343,7 +347,7 @@ function setWinState(){
 
 	door.move();
 	
-	stones.callAll('kill');
+//	stones.callAll('kill');
 	scorpions.setAlive(false);
 }
 
@@ -353,4 +357,7 @@ function restartPlayer(){
 	this.segment = null;
 	this.touchingSegment = false;
 	this.timeOfLastMove = game.time.now;
+
+	this.position.setTo(365, 360);
+	this.body.velocity.setTo(0, 0);
 }

@@ -4,6 +4,8 @@ function addRedScorpion () {
 
 	scorpion.damage = 20;
     scorpion.speed = 30;
+    scorpion.reverseSpeed = 45;
+    scorpion.canMove = true;
     scorpion.health = 30;
     scorpion.timeOfLastHit = game.time.now;
     scorpion.timeBetweenHits = 2000;
@@ -17,6 +19,7 @@ function addRedScorpion () {
     scorpion.makeSegment = makeScorpionToSegment;
     scorpion.update = updateRedScorpion;
     scorpion.takeDamage = redScorpionTakeDamage;
+    scorpion.moveBack = moveScorpionBack;
 
     return scorpion;
 }
@@ -51,23 +54,40 @@ function updateRedScorpion(){
     if(this.health <= 0 && game.time.now - this.timeDeath > 15000){
         this.health = 30;
         this.speed = 30;
+        this.timeOfLastMove = game.time.now;
+        if(Math.random() >= 0.5){
+            this.speed *= -1;
+        }
         this.healthBar.visible = true;
         this.healthBar.width = 32 * ( this.health / 30);
+        this.canMove = true;
 
         if(player.segment){
         	this.platformPosition = player.platformPosition;
             player.segment = null;
+            player.touchingSegment = null;
         }
     }
 
-    if(player.segment)
+    if(player.segment){
+        this.platformPosition = player.platformPosition;
         return;
+    }
+
+    if(!this.canMove && game.time.now - this.timeOfLastHit > 1500){
+        this.canMove = true;
+        this.speed = 30;
+        if(Math.random() >= 0.5){
+            this.speed *= -1;
+        }
+
+    }
 
     this.setPosition();
     this.move();
 }
 
-function redScorpionTakeDamage(damage){
+function redScorpionTakeDamage(damage, direction){
     if(game.time.now - this.timeOfLastHit < this.timeBetweenHits)
         return;
     this.timeOfLastHit = game.time.now;
@@ -75,7 +95,19 @@ function redScorpionTakeDamage(damage){
     this.health -= damage;
     this.healthBar.width = 32 * ( this.health / 30);
 
-    if(this.health > 0)
-        return;
-	this.makeSegment();
+    if(this.health > 0){
+        this.canMove = false;
+        this.speed = this.reverseSpeed;
+        if(direction == 'left')
+            this.speed *= -1;
+    }else{
+        this.makeSegment();
+    }
+
+
+	
+}
+
+function moveScorpionBack(direction){
+
 }

@@ -9,6 +9,9 @@ function addHeap(){
 	this.separation = [0, 20, 40, 78, 160];
 	this.speed = 50;
 
+	this.pool = [];
+	this.poolLenght = [0, 3, 7, 7, 15, 15];
+
 //	this.buildHeap = buildHeap;
 	this.percolatingDown = percolatingDown;
 //	this.heapSort = heapSort;
@@ -17,9 +20,22 @@ function addHeap(){
 
 	this.moveNodes = moveHeapNodes;
 	this.setDrawOrder = setHeapDrawOrder;
+	this.restart = restartHeap;
+	this.takeId = takePoolId;
 
 	this.toString = HeapToString;
 
+}
+
+function takePoolId(){
+	if(this.pool.length <= 0)
+		return;
+
+	var pos = Math.floor(Math.random()* (this.pool.length - 1));
+	var id = this.pool[pos];
+	this.pool.splice(pos, 1);
+
+	return id;
 }
 /*
 function buildHeap(){
@@ -73,6 +89,17 @@ function deleteMin(){
 	this.array[1] = this.array[this.size--];
 	this.percolatingDown(1);
 	return min;
+}
+
+function restartHeap(){
+
+	while(this.size != 0){
+		this.deleteMin().destroy();
+	}
+	this.array = [];
+	this.pool = [];
+	for(var i=0; i<this.poolLenght[game.global.level]; i++)
+		this.pool[i] = i + 1;
 }
 
 function insert(x){
