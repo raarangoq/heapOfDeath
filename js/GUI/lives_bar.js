@@ -42,6 +42,7 @@ function livesBarSetDrawOrder(){
     this.heart[0].bringToTop();
     this.heart[1].bringToTop();
     this.heart[2].bringToTop();
+    this.health.bringToTop();
 }
 
 function livesBarSetAlive(value){

@@ -66,6 +66,9 @@ game.time.advancedTiming = true;
                 if(items)
                     items.bringToTop();
                 gui.setDrawOrder();
+                winImage.bringToTop();
+                endImage.bringToTop();
+                loseImage.bringToTop();
 
                 scorpions.update();
                 
@@ -130,7 +133,7 @@ game.time.advancedTiming = true;
         player.touchingSegment = null;
 
         if(game.time.now - player.timeOfLastScorpionAttack > player.timeBetweenScorpionsAttacks){
-        //    player.hitPlayer(scorpion);
+            player.hitPlayer(scorpion);
             player.timeOfLastScorpionAttack = game.time.now;
         }
     },

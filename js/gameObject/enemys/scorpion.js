@@ -17,7 +17,7 @@ function addScorpion(type){
 
     scorpion.health = 10;
     scorpion.speed = 20;
-    scorpion.damage = 20;
+    scorpion.damage = 10;
     scorpion.timeOfLastMove = game.time.now;
     scorpion.platformPosition = 0;
 
