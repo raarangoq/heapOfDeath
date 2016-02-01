@@ -67,3 +67,31 @@ function setPageAlive(value){
 	else
 		this.kill();
 }
+
+function addPausePage3(){
+	var page = game.add.sprite(100, 130, 'velocity');
+	var text = game.add.text(50, 0, 
+		'Velocidad: Te permite moverte mas rápido mientras está activo.', 
+		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+		wordWrap: true, wordWrapWidth: 600});
+	page.addChild(text);
+
+	var image = game.add.sprite(0, 100, 'shield');
+	page.addChild(image);
+	text = game.add.text(50, 100, 
+		'Escudo: Te proteje de los escorpiones.', 
+		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3, 
+		wordWrap: true, wordWrapWidth: 600});
+	page.addChild(text);
+
+	image = game.add.sprite(0, 200, 'heart');
+	page.addChild(image);
+	text = game.add.text(50, 200, 
+		'Vida: Dispones de tres vidas, cuando las pierdes, mueres.', 
+		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+		wordWrap: true, wordWrapWidth: 600});
+	page.addChild(text);
+
+	page.setAlive = setPageAlive;
+	return page;
+}

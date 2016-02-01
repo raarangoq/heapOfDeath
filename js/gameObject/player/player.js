@@ -116,7 +116,8 @@ function attacking(){
 
 
 function hitPlayer(enemy){
-	
+	player.timeOfLastScorpionAttack = game.time.now;
+
 	this.start_time_hit = game.time.time;
 	if(this.canMove){
 		if(enemy.key == 'scorpion'){
@@ -163,11 +164,11 @@ function checkHealth(){
 }
 
 function playerDies(timeOut){
-        // When the player dies
+    // When the player dies
 	if (game.global.lives < 1 || timeOut){
 	    this.kill();
 
-//	    stones.callAll('kill');
+	    scorpions.setAlive(false);
 	    loseImage.visible = true;
 	}
     

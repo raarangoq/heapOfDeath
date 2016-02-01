@@ -1,8 +1,4 @@
 
-
-/*********************************************
-            Group of scorpions
-********************************************/
 function addScorpion(type){
 
     var scorpion;
@@ -17,11 +13,15 @@ function addScorpion(type){
 
     scorpion.health = 10;
     scorpion.speed = 20;
+    scorpion.reverseSpeed = 30;
+    scorpion.canMove = true;
     scorpion.damage = 10;
+    scorpion.timeOfLastHit = game.time.now;
     scorpion.timeOfLastMove = game.time.now;
     scorpion.platformPosition = 0;
 
     scorpion.move = moveScorpion;
+    scorpion.goBack = moveScorpionBack;
     scorpion.setPosition = setScorpionPosition;
     scorpion.takeDamage = scorpionTakeDamage;
     scorpion.die = scorpionDies;
@@ -50,6 +50,18 @@ function addAngularPosition(value){
     return angularPosition;
 }
 
+function moveScorpionBack(direction){
+    if(direction === undefined){
+        if(this.x < 400)    {direction = 'left';}
+        else                {direction = 'right';}
+    }
+    this.timeOfLastHit = game.time.now;
+
+    this.canMove = false;
+    this.speed = this.reverseSpeed;
+    if(direction == 'left')
+        this.speed *= -1;
+}
 
 function moveScorpion(){
     var time = game.time.now - this.timeOfLastMove;
@@ -91,6 +103,15 @@ function updateScorpion(){
         this.platformPosition = this.addAngularPosition(180);
 
         this.timeOfLastMove = game.time.now;
+    }
+
+
+    if(!this.canMove && game.time.now - this.timeOfLastHit > 1500){
+        this.canMove = true;
+        this.speed = 20;
+        if(Math.random() >= 0.5){
+            this.speed *= -1;
+        }
     }
 
     this.setPosition();

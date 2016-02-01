@@ -5,7 +5,7 @@ function addScorpionsGroup(){
     this.timeBetweenScorpions = 10000;
 
     this.array = [];
-    for(var i=0; i<0; i++){
+    for(var i=0; i<1; i++){
     	this.array[i] = addScorpion();
     }
     this.array[this.array.length] = addRedScorpion();

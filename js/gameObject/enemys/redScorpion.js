@@ -5,9 +5,7 @@ function addRedScorpion () {
 	scorpion.damage = 20;
     scorpion.speed = 30;
     scorpion.reverseSpeed = 45;
-    scorpion.canMove = true;
     scorpion.health = 30;
-    scorpion.timeOfLastHit = game.time.now;
     scorpion.timeBetweenHits = 2000;
     scorpion.timeDeath = game.time.now;
 
@@ -19,7 +17,6 @@ function addRedScorpion () {
     scorpion.makeSegment = makeScorpionToSegment;
     scorpion.update = updateRedScorpion;
     scorpion.takeDamage = redScorpionTakeDamage;
-    scorpion.moveBack = moveScorpionBack;
 
     return scorpion;
 }
@@ -80,7 +77,6 @@ function updateRedScorpion(){
         if(Math.random() >= 0.5){
             this.speed *= -1;
         }
-
     }
 
     this.setPosition();
@@ -96,18 +92,9 @@ function redScorpionTakeDamage(damage, direction){
     this.healthBar.width = 32 * ( this.health / 30);
 
     if(this.health > 0){
-        this.canMove = false;
-        this.speed = this.reverseSpeed;
-        if(direction == 'left')
-            this.speed *= -1;
+        this.goBack(direction);
     }else{
         this.makeSegment();
     }
-
-
-	
 }
 
-function moveScorpionBack(direction){
-
-}

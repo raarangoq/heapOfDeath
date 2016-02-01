@@ -134,7 +134,7 @@ game.time.advancedTiming = true;
 
         if(game.time.now - player.timeOfLastScorpionAttack > player.timeBetweenScorpionsAttacks){
             player.hitPlayer(scorpion);
-            player.timeOfLastScorpionAttack = game.time.now;
+            scorpion.goBack();
         }
     },
 
@@ -160,12 +160,6 @@ game.time.advancedTiming = true;
         player.hitPlayer(boss);
     },
 
-    addAliens: function(){
-        if(game.time.now - player.timeOfLastScorpionAttack > player.timeBetweenScorpionsAttacks){
-            player.hitPlayer(scorpion);
-            player.timeOfLastScorpionAttack = game.time.now;
-        }
-    },
 
     addExplosion: function(x, y){
         var explosion = explosions.getFirstExists(false);
@@ -204,10 +198,6 @@ game.time.advancedTiming = true;
         }
     },
 
-    // Establecer la explosión
-    setupExplosion: function(explosion) {
-        
-    },
 
     setAbility: function(player, item){
         items.takeItem();
