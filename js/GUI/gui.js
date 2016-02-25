@@ -9,8 +9,6 @@ function GUI(){
 	this.pause_menu = addPause();
 	this.scoreText = addScore();
 
-	this.timeText = addTimer();
-
 	// Metodos
 	this.update = updateGui;
 	this.setDrawOrder = guiSetDrawOrder;
@@ -59,7 +57,6 @@ function guiSetDrawOrder(){
 	this.pause_menu.setDrawOrder();
 	this.items_bar.setDrawOrder();
 	this.lives_bar.setDrawOrder();
-	this.timeText.setDrawOrder();
 	this.scoreText.setDrawOrder();
 }
 
@@ -68,7 +65,6 @@ function guiSetAlive(value){
 	this.lives_bar.setAlive(value);
 	this.pause_menu.setAlive(value);
 	this.scoreText.setAlive(value);
-	this.timeText.setAlive(value);
 }
 
 

@@ -4,6 +4,11 @@ function addPause(){
 	pause_menu.fixedToCamera = true;
 	pause_menu.visible = false;
 
+	var text = game.add.text(540, 35, 'Usa <- -> para moverte entre páginas',
+		{ font: "14pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+		wordWrap: true, wordWrapWidth: 230});
+	pause_menu.addChild(text);
+
 	pause_menu.timeLastPause = game.time.now;
 
 	pause_menu.actualPage = 0;
@@ -62,7 +67,6 @@ function pauseGame(){
 			this.pages[this.actualPage].setAlive(false);
 			game.physics.arcade.isPaused = false;
 			
-			gui.timeText.initLevelTime += (game.time.now - this.timeLastPause);
 			player.timeOfLastMove += (game.time.now - this.timeLastPause);
 
 

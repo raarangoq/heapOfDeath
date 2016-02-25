@@ -27,8 +27,14 @@ function addPlayer(){
 	player.attack = player.addChild(addAttack());
 	player.spiral = player.addChild(addSpiral());
 
-	player.shield = player.addChild(game.add.sprite(17, 10, 'shield'));
+	player.shield = player.addChild(game.add.sprite(34, 30, 'aura'));
+	player.shield.anchor.setTo(0.5, 0.5);
+	player.shield.animations.add('shine', [0, 1, 2, 3, 4, 5, 6], 9, true);
+	player.shield.play('shine');
+	player.shield.initTime = game.time.now;
 	player.shield.visible = false;
+
+	player.blood = player.addChild(addBlood());
 
 	player.haveTorpedo = false;
 	player.timeWithVelocity = 5000;
@@ -128,6 +134,7 @@ function hitPlayer(enemy){
 		else if(enemy.key == 'redscorpion'){
 			this.takeDamage(enemy.damage);
 			this.shield.visible = false;
+			this.shield.scale.setTo(1, 1);
 
 			this.canMove = false;
 			this.spiral.visible = true;
@@ -141,7 +148,10 @@ function hitPlayer(enemy){
 }
 
 function playerTakeDamage(damage){
+	this.blood.playBleed();
 	game.global.health -= damage;
+
+
 	this.checkHealth();
 	this.playerDies();
 }
@@ -285,10 +295,15 @@ function toAttack(){
 
 // Se ejecutan las funciones del jugador, como moverse y atacar
 function updatePlayer(){
+	if(game.physics.arcade.isPaused)
+        return;
+
 	if(game.time.elapsedSince(this.start_time_hit) > 1500 ){
 		this.canMove = true;
 		this.spiral.visible = false;
 	}
+
+	this.blood.update();
 
 	this.movePlayer();
 	this.attacking();
@@ -303,6 +318,19 @@ function updatePlayer(){
         	this.speed = this.SPEED_ATTACKING;
         gui.changeAbility(false, "velocity");
     }  
+
+
+    if(this.shield.visible){
+    	var time =  Math.floor((10000 - (game.time.now - this.shield.initTime)) / 1000);
+    	var scale = ((time * 1000 / 10000) * 1.5) + 0.5;
+    	if(scale > 1)
+    		scale = 1;
+    	
+    	this.shield.scale.setTo(scale, scale);
+
+    	if(game.time.now - this.shield.initTime > 10000)
+    		this.shield.visible = false;
+    }
 
     if( this.segment ){
     	this.segment.x = this.body.x + 5;
@@ -353,6 +381,7 @@ function activateVelocity(){
 
 function activateShield(){
 	this.shield.visible = true;
+	this.shield.initTime = game.time.now;
 }
 
 function setWinState(){
@@ -368,6 +397,7 @@ function restartPlayer(){
 	this.segment = null;
 	this.touchingSegment = false;
 	this.timeOfLastMove = game.time.now;
+	this.shield.visible = false;
 
 	this.position.setTo(365, 360);
 	this.body.velocity.setTo(0, 0);

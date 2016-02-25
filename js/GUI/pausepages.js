@@ -40,7 +40,9 @@ function addPausePage2(){
 		wordWrap: true, wordWrapWidth: 600});
 	page.addChild(text);
 
-	var image = game.add.sprite(0, 100, 'light');
+	var image = game.add.sprite(0, 100, 'redscorpion');
+	image.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
+	image.play('walk');
 	page.addChild(image);
 	text = game.add.text(50, 100, 
 		'Escorpion Rojo: Bicho que inflinge daño moderado, con tres ataques lo conviertes en un caparazon.', 
@@ -48,7 +50,8 @@ function addPausePage2(){
 		wordWrap: true, wordWrapWidth: 600});
 	page.addChild(text);
 
-	image = game.add.sprite(0, 200, 'light');
+	image = game.add.sprite(0, 200, 'redscorpion');
+	image.frame = 9;
 	page.addChild(image);
 	text = game.add.text(50, 200, 
 		'Caparazon: Escorpion rojo que se defiende de los ataques. Tomalo con ESPACIO, luego salta, y cuando estes en lo más alto, preciona ESPACIO para introducirlo en el reloj de arena.', 

@@ -32,7 +32,7 @@ endImage.visible = false;
 //    for(var i=0; i<heap.poolLenght[game.global.level] - 1; i++)
 //        heap.insert(heap.takeId());
 
-items = addItem('velocity');
+items = addItem('shield');
     
 
     timeOfWinState = game.time.now;

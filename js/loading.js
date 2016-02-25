@@ -8,9 +8,9 @@ var text;
 loading = {
 	preload: function(){
 
-    game.load.image('light', 'assets/pics/items/bombArrowItem.png');
     game.load.image('velocity', 'assets/pics/items/speedItem.png');
     game.load.image('shield', 'assets/pics/items/shield.png');
+    game.load.spritesheet('aura', 'assets/pics/aura.png', 64, 64);
 
     game.load.spritesheet('heart', 'assets/pics/GUI/heart.png', 14, 16);
     
@@ -26,7 +26,8 @@ loading = {
 
     game.load.spritesheet('player', 'assets/pics/player.png', 70, 70);
     game.load.spritesheet('attack','assets/pics/attackzone.png', 30, 30);
-    game.load.image('spiral','assets/pics/espiral.png');
+    game.load.spritesheet('spiral','assets/pics/spiral.png', 44, 38);
+    game.load.spritesheet('blood', 'assets/pics/blood.png', 83, 69);
   
     game.load.image('background', 'assets/pics/background.png');
     game.load.image('ground', 'assets/pics/levels/ground.png');
