@@ -24,8 +24,6 @@ end = {
     linkfail.scale.setTo(0.2, 0.2);
     linkfail.visible = false;
 
-
-    wall.revive();
     ground.revive();
 
 

@@ -2,6 +2,12 @@
 function addRedScorpion () {
 	var scorpion = addScorpion('red');
 
+    scorpion.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
+    scorpion.animations.add('close', [5, 6, 7, 8, 9], 6);
+    scorpion.animations.add('open', [9, 8, 7, 6, 5], 6);
+
+    scorpion.play('walk');
+
 	scorpion.damage = 20;
     scorpion.speed = 30;
     scorpion.reverseSpeed = 45;
@@ -23,7 +29,7 @@ function addRedScorpion () {
 
 function makeScorpionToSegment(){
     gui.upScore(15);
-
+    this.play('close');
     this.healthBar.visible = false;
     this.timeDeath = game.time.now;
     this.speed = 0;
@@ -33,7 +39,7 @@ function updateRedScorpion(){
 	if( game.physics.arcade.isPaused || flags['winState'] || !game.global.is_playing)
 		return;
 
-	if(this.y < 330){
+	if(this.y < 270){
 		this.platformPosition = player.platformPosition;
         this.platformPosition = this.addAngularPosition(180);
         return;
@@ -48,21 +54,26 @@ function updateRedScorpion(){
         this.timeOfLastMove = game.time.now;
     }
 
-    if(this.health <= 0 && game.time.now - this.timeDeath > 15000){
-        this.health = 30;
-        this.speed = 30;
-        this.timeOfLastMove = game.time.now;
-        if(Math.random() >= 0.5){
-            this.speed *= -1;
-        }
-        this.healthBar.visible = true;
-        this.healthBar.width = 32 * ( this.health / 30);
-        this.canMove = true;
+    if(this.health <= 0){
+        if(game.time.now - this.timeDeath > 4000)
+            this.play('open');
+        if(game.time.now - this.timeDeath > 7000){
+            this.health = 30;
+            this.speed = 30;
+            this.play('walk');
+            this.timeOfLastMove = game.time.now;
+            if(Math.random() >= 0.5){
+                this.speed *= -1;
+            }
+            this.healthBar.visible = true;
+            this.healthBar.width = 32 * ( this.health / 30);
+            this.canMove = true;
 
-        if(player.segment){
-        	this.platformPosition = player.platformPosition;
-            player.segment = null;
-            player.touchingSegment = null;
+            if(player.segment){
+            	this.platformPosition = player.platformPosition;
+                player.segment = null;
+                player.touchingSegment = null;
+            }
         }
     }
 
@@ -71,13 +82,13 @@ function updateRedScorpion(){
         return;
     }
 
+    
     if(!this.canMove && game.time.now - this.timeOfLastHit > 1500){
         this.canMove = true;
         this.speed = 30;
-        if(Math.random() >= 0.5){
-            this.speed *= -1;
-        }
+        if(Math.random() >= 0.5)    this.speed *= -1;
     }
+    
 
     this.setPosition();
     this.move();

@@ -5,10 +5,11 @@ function addScorpionsGroup(){
     this.timeBetweenScorpions = 10000;
 
     this.array = [];
-    for(var i=0; i<1; i++){
+    this.array[0] = addRedScorpion();
+    for(var i=1; i<2; i++){
     	this.array[i] = addScorpion();
     }
-    this.array[this.array.length] = addRedScorpion();
+    
 
     this.killSound = game.add.audio('rugido');
     this.newSound = game.add.audio('scorpion');
@@ -66,17 +67,19 @@ function scorpionsGroupAttack(){
 
     scorpion.reset(400, 0);
     scorpion.body.acceleration.y = 20;
+    scorpion.scale.set(0.8);
     scorpion.platformPosition = 0;
     scorpion.health = 10;
 
     this.timeOfLastScorpion = game.time.now;
     this.newSound.play();
 
-    if(scorpion.key == 'light'){
+    if(scorpion.key == 'redscorpion'){
         scorpion.healthBar.revive();
         scorpion.health = 30;
         scorpion.healthBar.width = 32;
         scorpion.speed = 30;
+        scorpion.play('walk');
     }
 
     if(Math.random() <= 0.5)
@@ -98,6 +101,9 @@ function setScorpionsDrawOrder(value){
 }
 
 function addScorpionsPauseTime(value){
-	for(var i=0; i<this.array.length; i++)
+	for(var i=0; i<this.array.length; i++){
     	this.array[i].timeOfLastMove += value;
+    	if(this.array[i].key == 'redscorpion')
+    		this.array[i].timeDeath += value;
+	}
 }

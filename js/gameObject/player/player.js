@@ -10,7 +10,6 @@ function addPlayer(){
 	player.body.gravity.y = 200;
 
 	player.inGround = false;
-	player.start_time_pillar_action = game.time.now;
 
 	player.segment = null;
 	player.touchingSegment = false;
@@ -126,7 +125,7 @@ function hitPlayer(enemy){
 			else
 				return;
 		}
-		else if(enemy.key == 'light'){
+		else if(enemy.key == 'redscorpion'){
 			this.takeDamage(enemy.damage);
 			this.shield.visible = false;
 
@@ -192,6 +191,14 @@ function movePlayerPlatformPosition(value){
 	else if(this.platformPosition < 0)
 		this.platformPosition += 360;
 
+	if(this.speed == this.highSpeed){
+		platform.play('walk', 10);
+		gear.play(this.direction, 10);
+	}
+	else{
+		platform.play('walk', 6);
+		gear.play(this.direction, 6);
+	}
 }
 
 // El movimiento del jugador mediante teclado
@@ -221,6 +228,10 @@ function movePlayer(){
 		if(!this.is_attacking) 
 			this.attack.changeAttackOrientation('right', this);
 	} 
+	else{
+		platform.animations.stop();
+		gear.animations.stop();
+	}
 	
 	this.timeOfLastMove = game.time.now;
 
@@ -228,6 +239,8 @@ function movePlayer(){
 	if(keyboard.upKey()){
 		if (player.body.touching.down){
 			this.body.velocity.y = -this.speed * 7;
+			if(this.speed == this.highSpeed)
+				this.body.velocity.y = -this.speed * 4.5;
 		}
 		this.playAnimations('back');
 		if(!this.is_attacking) 
@@ -303,7 +316,7 @@ function updatePlayer(){
 			this.toAttack();
 		else{
 			if(this.segment){
-				if(this.body.y < 300){
+				if(this.y < 300){
 					this.segment.die();
 					this.segment = null;
 					this.touchingSegment = null;
@@ -345,10 +358,7 @@ function activateShield(){
 function setWinState(){
 	flags['winState'] = true;
 	timeOfWinState = game.time.now;
-
-	door.move();
 	
-//	stones.callAll('kill');
 	scorpions.setAlive(false);
 }
 

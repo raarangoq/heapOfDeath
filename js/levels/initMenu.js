@@ -9,7 +9,9 @@ var flags = [];
 var wall;
 var ground;
 var hourGlass;
+var hourglassback;
 var platform;
+var gear;
 var door;
 var stones;
 var scorpions;
@@ -49,22 +51,24 @@ initMenu = {
 		sky.kill();
 
 		// GameObjects ever in game
-		background = game.add.tileSprite(0, 0, 800, 600, 'background');
+		background = game.add.sprite(0, 0, 'background');
 		background.kill();
-	    //game.stage.backgroundColor = '#aaaaaa';
 
+		addGear();
+		gear.kill();
 	    addPlatform();
 	    platform.setAlive(false);
 
-	    hourGlass = game.add.sprite(400, 300, 'hourglass');
-	    hourGlass.anchor.setTo(0.5, 0.5);
+	    hourglassback = game.add.sprite(400, 234, 'hourglassback');
+		hourglassback.anchor.set(0.5);
+hourglassback.scale.set(1.3);
+		hourglassback.kill();
+
+	    hourGlass = game.add.sprite(400, 260, 'hourglass');
+	    hourGlass.anchor.set(0.5);
+hourGlass.scale.set(1.3);
 	    hourGlass.kill();
 
-	    door = addDoor();
-	    door.setAlive(false);
-
-//	    addStones();
-//	    stones.callAll('kill');
 
 	    scorpions = new addScorpionsGroup();
 	    scorpions.setAlive(false);
@@ -119,9 +123,10 @@ text = game.add.text(20, 540, 'Cargando...', { fontSize: '16px', fill: '#ffffff'
 	},
 
 	addPlayerFloor: function(){
-		floor = game.add.sprite(380, 450, 'pillar');
+		floor = game.add.sprite(380, 460, 'pillar');
 		game.physics.enable(floor, Phaser.Physics.ARCADE);
 		floor.body.immovable = true;
+		floor.renderable = false;
 	},
 
 	addFlags: function(){

@@ -22,17 +22,17 @@ endImage.visible = false;
 //    stones.reset();
 //    scorpions.reset();
 
+    gear.revive();
     platform.setAlive(true);
+    hourglassback.revive();
     hourGlass.revive();
 
-    door.setAlive(true);
-    door.reset();
 
     heap.restart();
-//    heap.insert(16);
-//    heap.insert(17);
+//    for(var i=0; i<heap.poolLenght[game.global.level] - 1; i++)
+//        heap.insert(heap.takeId());
 
-//    items = addItem('light');
+items = addItem('velocity');
     
 
     timeOfWinState = game.time.now;
@@ -59,8 +59,9 @@ game.time.advancedTiming = true;
 
             //    platform.setDrawOrder();
                 scorpions.setDrawOrder(false);
-                hourGlass.bringToTop();
+                hourglassback.bringToTop();
                 heap.setDrawOrder();
+                hourGlass.bringToTop();
                 scorpions.setDrawOrder(true);
                 player.setDrawOrder();
                 if(items)
@@ -124,18 +125,16 @@ game.time.advancedTiming = true;
         if(!game.physics.arcade.overlap(player, scorpion))
             return;
 
-        if(scorpion.key == 'light'){
-            if(scorpion.health <= 0){
-                player.touchingSegment = scorpion;
-                return;
-            }
+        if(scorpion.key == 'redscorpion' && scorpion.health <= 0){
+            player.touchingSegment = scorpion;
+            return;
         }
         player.touchingSegment = null;
 
         if(game.time.now - player.timeOfLastScorpionAttack > player.timeBetweenScorpionsAttacks){
             player.hitPlayer(scorpion);
-            scorpion.goBack();
         }
+        scorpion.goBack();
     },
 
     attackHitScorpion: function(scorpion){
@@ -206,7 +205,7 @@ game.time.advancedTiming = true;
     render: function() {
 
 textb.text = game.time.fps;
-text.text = scorpions.array[0].speed + '\n' + scorpions.array[0].canMove;
+text.text = scorpions.array[0].scale.toString();
 
 
     },
@@ -224,17 +223,15 @@ text.text = scorpions.array[0].speed + '\n' + scorpions.array[0].canMove;
         }
 
         platform.setAlive(false);
+        gear.kill();
+        hourglassback.kill();
         hourGlass.kill();
-        door.setAlive(false);
         boss.kill();
 
         if(items)
             items.destroy();
         items = null;
 
-//        stones.reset();
- //       stones.avalanche.visible = false;
-        
         winImage.visible = false;
         endImage.visible = false;
         loseImage.visible = false;
@@ -246,8 +243,10 @@ text.text = scorpions.array[0].speed + '\n' + scorpions.array[0].canMove;
         if(game.global.level <= 5)
             game.state.start('levels', false);
         else {
-            player.kill();
-            game.state.start('end', false);
+            //player.kill();
+            //game.state.start('end', false);
+            game.global.level = 1;
+            game.state.start('levels', false);
         }
 
     },

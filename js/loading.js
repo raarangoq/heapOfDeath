@@ -16,10 +16,11 @@ loading = {
     
 
     game.load.image('enemyBar', 'assets/pics/enemys/enemyBar.png');
-    game.load.image('stone', 'assets/pics/enemys/stone.png');
-    game.load.image('avalanche', 'assets/pics/enemys/avalanche.png');
     game.load.image('scorpion', 'assets/pics/enemys/segment.png');
+    game.load.spritesheet('redscorpion', 'assets/pics/enemys/redscorpion.png', 46, 41);
     game.load.image('boss', 'assets/pics/enemys/boss.png');
+    
+    game.load.image('node', 'assets/pics/node.png');
 
     game.load.spritesheet('kaboom', 'assets/pics/explode.png', 128, 128);
 
@@ -30,20 +31,11 @@ loading = {
     game.load.image('background', 'assets/pics/background.png');
     game.load.image('ground', 'assets/pics/levels/ground.png');
     game.load.image('hourglass', 'assets/pics/hourglass.png');
+    game.load.image('hourglassback', 'assets/pics/hourglassback.png');
     game.load.image('door', 'assets/pics/levels/door.png');
-    game.load.image('door-1', 'assets/pics/levels/door-1.png');
-    game.load.image('door-2', 'assets/pics/levels/door-2.png');
-    game.load.image('platform', 'assets/pics/levels/platform.png');
+    game.load.spritesheet('platform', 'assets/pics/levels/platform.png', 594, 151);
+    game.load.spritesheet('gear', 'assets/pics/levels/gear.png', 599, 203);
     game.load.image('pillar', 'assets/pics/levels/pillar.png');
-//    game.load.image('segment', 'assets/pics/levels/segment.png');
-    game.load.image('segment-1', 'assets/pics/levels/segment-1.png');
-    game.load.image('segment-2', 'assets/pics/levels/segment-2.png');
-    game.load.image('segment-3', 'assets/pics/levels/segment-3.png');
-    game.load.image('segment-4', 'assets/pics/levels/segment-4.png');
-    game.load.image('segment-5', 'assets/pics/levels/segment-5.png');
-
-    game.load.spritesheet('fire', 'assets/pics/levels/fire.png', 32, 32);
-    game.load.spritesheet('pedestal', 'assets/pics/levels/pedestal.png');
 
     game.load.image('end', 'assets/pics/images/end.png');
     game.load.image('initmenu', 'assets/pics/images/initmenu.png');

@@ -5,7 +5,7 @@ function addScorpion(type){
     if(!type)
         scorpion = game.add.sprite(0, 0, 'scorpion');
     else if(type == 'red')
-        scorpion = game.add.sprite(0, 0, 'light');
+        scorpion = game.add.sprite(0, 0, 'redscorpion');
 
     game.physics.enable(scorpion, Phaser.Physics.ARCADE);
 
@@ -77,10 +77,12 @@ function setScorpionPosition(){
     
     local_position = Math.PI * local_position / 180;
 
-    var x = 250 * Math.sin(local_position);
-    var y = 250 * Math.cos(local_position);
+    var x = 250 * Math.sin(local_position) * 1.3;
+    var y = 250 * Math.cos(local_position) * 1.3;
 
     y*=0.2;
+
+    this.scale.set(1 + ( Math.cos(local_position) / 5  ));
 
     this.position.setTo(400 + x, 380 + y);
 }
@@ -90,7 +92,7 @@ function updateScorpion(){
     if( game.physics.arcade.isPaused || flags['winState'] || !game.global.is_playing)
         return;
 
-    if(this.y < 330){
+    if(this.y < 280){
         this.platformPosition = player.platformPosition;
         this.platformPosition = this.addAngularPosition(180);
         return;

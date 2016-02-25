@@ -6,7 +6,8 @@ function addHeap(){
 	this.capacity = 2;
 	this.size = 0
 
-	this.separation = [0, 20, 40, 78, 160];
+//	this.separation = [0, 20, 40, 78, 160];
+	this.separation = [0, 15, 30, 59, 120];
 	this.speed = 50;
 
 	this.pool = [];
@@ -110,7 +111,9 @@ function insert(x){
 
 	this.array[pos] = addNode(x);
 
-	this.moveNodes( 1, 400, 300, Math.floor(Math.log2(this.size)) );
+	var height = Math.floor(Math.log2(this.size));
+
+	this.moveNodes( 1, 400, 400 - (26 * height),  height);
 }
 
 function HeapToString(){
@@ -123,10 +126,8 @@ function HeapToString(){
 function moveHeapNodes(i, x, y, height){
 	this.array[i].move(x, y);
 
-	if(this.array[2*i])
-		this.moveNodes(2*i, x - this.separation[height], y + 40, height - 1);
-	if(this.array[2*i + 1])
-		this.moveNodes(2*i + 1, x + this.separation[height], y + 40, height - 1);
+	if(this.array[2*i]) 	this.moveNodes(2*i, 	x - this.separation[height], y + 25, height - 1);
+	if(this.array[2*i + 1])	this.moveNodes(2*i + 1, x + this.separation[height], y + 25, height - 1);
 }
 
 function setHeapDrawOrder() {

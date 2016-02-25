@@ -1,16 +1,18 @@
 
 function addNode(id){
-	var node = game.add.sprite(400, 200, 'shield');
+	var node = game.add.sprite(400, 200, 'node');
 	game.physics.enable(node, Phaser.Physics.ARCADE);
-
+	node.anchor.set(0.5);
+	node.scale.set(1.2);
 	node.id = id;
 	this.xTarget = 400;
 	this.yTarget = 200;
 
-	var textId = game.add.text(10, -10, id, 
-        { font: "14pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3 });
+	var textId = game.add.text(0, 0, id, 
+        { font: "10pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3 });
     var child = node.addChild(textId);
-    game.physics.enable(child, Phaser.Physics.ARCADE);
+    child.anchor.set(0.5);
+//    game.physics.enable(child, Phaser.Physics.ARCADE);
 
 
     node.update = updateNode;
