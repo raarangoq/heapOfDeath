@@ -2,10 +2,11 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '');
 
 game.global = {
-	level : 3,
+	level : 5,
 	is_playing : false,
 	lives : 3,
-	health : 100
+	health : 100,
+	score : 0,
 }
 
 game.state.add('boot', boot, true);

@@ -131,7 +131,7 @@ function hitPlayer(enemy){
 			else
 				return;
 		}
-		else if(enemy.key == 'redscorpion'){
+		else if(enemy.key == 'redscorpion' || enemy.key == 'boss'){
 			this.takeDamage(enemy.damage);
 			this.shield.visible = false;
 			this.shield.scale.setTo(1, 1);
@@ -337,6 +337,10 @@ function updatePlayer(){
 		this.segment.y = this.body.y - 45;
     }
 
+    if(this.y < 300)
+    	basket.frame = 1;
+    else
+    	basket.frame = 2;
 
 	
 	if(keyboard.spaceKey() && !this.is_attacking){
@@ -366,7 +370,7 @@ function updatePlayer(){
 }
 
 function activateAbility(type){
-	gui.upScore(50);
+	gui.upScore(10);
     if ( type == "velocity"){
         this.activateVelocity();
     } 

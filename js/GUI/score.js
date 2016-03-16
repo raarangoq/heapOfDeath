@@ -1,25 +1,23 @@
 
 function addScore(){
-
-    var scoreText = game.add.text(10, 10, 'Puntaje: ', { font: '34px ferney', fill: '#fff' });
+    var scoreText = game.add.text(10, 10, 'Puntaje: 0', { font: '34px ferney', fill: '#fff' });
     scoreText.stroke = '#000000';
     scoreText.strokeThickness = 6;
     scoreText.scoreString = 'Puntaje: ';
-    scoreText.score = 0;
+    scoreText.score = game.global.score;
 
     scoreText.upScore = upScore;
     scoreText.setDrawOrder = scoreSetDrawOrder;
     scoreText.setAlive = scoreSetAlive;
     scoreText.restart = restartScoreText;
-    scoreText.update = updateScoreText;
+    scoreText.setGlobalScore = setGlobalScore;
 
     return scoreText;
 }
 
-function updateScoreText(){
-    this.text = this.scoreString + this.score;
+function setGlobalScore(){
+    game.global.score = this.score;
 }
-
 
 function upScore(value){
 	this.score += value;
@@ -40,5 +38,5 @@ function scoreSetAlive(value){
 }
 
 function restartScoreText(){
-    this.score = 0;
+    this.score = game.global.score;
 }

@@ -27,12 +27,19 @@ endImage.visible = false;
     hourglassback.revive();
     hourGlass.revive();
 
+    basket.revive();
+
+    if(game.global.level == 5){
+        boss.revive();
+        boss.reset();
+    }
+
 
     heap.restart();
-//    for(var i=0; i<heap.poolLenght[game.global.level] - 1; i++)
-//        heap.insert(heap.takeId());
+    for(var i=0; i<heap.poolLenght[game.global.level] - 1; i++)
+        heap.insert(heap.takeId());
 
-items = addItem('shield');
+//items = addItem('shield');
     
 
     timeOfWinState = game.time.now;
@@ -63,6 +70,7 @@ game.time.advancedTiming = true;
                 heap.setDrawOrder();
                 hourGlass.bringToTop();
                 scorpions.setDrawOrder(true);
+                basket.bringToTop();
                 player.setDrawOrder();
                 if(items)
                     items.bringToTop();
@@ -84,7 +92,10 @@ game.time.advancedTiming = true;
                 game.physics.arcade.overlap(player, items, this.setAbility, null, this);
 
                 if(game.global.level == 5){
- //                   game.physics.arcade.overlap(player, boss, this.bossHitPlayer, null, this);
+                    if(boss.distanceToPlayer() <= 30){
+                        this.bossHitPlayer();
+                        this.attackHitBoss();
+                    }
                 }
 
                 
@@ -155,8 +166,19 @@ game.time.advancedTiming = true;
         this.addExplosion(boss.x + 40, boss.y + 40);
     },
 
-    bossHitPlayer: function(player, boss){
+    bossHitPlayer: function(){
+        if(!game.physics.arcade.overlap(player, boss))
+            return;
+
         player.hitPlayer(boss);
+        boss.goBack();
+    },
+
+    attackHitBoss: function(){
+        if(!game.physics.arcade.overlap(player.attack, boss))
+            return;
+
+        boss.takeDamage(player.direction);
     },
 
 
@@ -204,8 +226,9 @@ game.time.advancedTiming = true;
 
     render: function() {
 
-textb.text = game.time.fps;
-text.text = scorpions.array[0].scale.toString();
+//textb.text = game.time.fps;
+textc.text = boss.platformPosition;
+game.debug.body(boss);
 
 
     },
@@ -214,7 +237,9 @@ text.text = scorpions.array[0].scale.toString();
 //        sound_backgroud.stop();
 
         if (player.alive){
+            gui.upScore(game.global.level * 50);
             game.global.level++;
+            gui.scoreText.setGlobalScore();
         }
         else{
             game.global.lives = 3;

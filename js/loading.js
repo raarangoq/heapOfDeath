@@ -37,6 +37,7 @@ loading = {
     game.load.spritesheet('platform', 'assets/pics/levels/platform.png', 594, 151);
     game.load.spritesheet('gear', 'assets/pics/levels/gear.png', 599, 203);
     game.load.image('pillar', 'assets/pics/levels/pillar.png');
+    game.load.spritesheet('basket', 'assets/pics/basket.png', 50, 40);
 
     game.load.image('end', 'assets/pics/images/end.png');
     game.load.image('initmenu', 'assets/pics/images/initmenu.png');

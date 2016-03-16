@@ -6,16 +6,18 @@ function addScorpion(type){
         scorpion = game.add.sprite(0, 0, 'scorpion');
     else if(type == 'red')
         scorpion = game.add.sprite(0, 0, 'redscorpion');
+    else if(type == 'boss')
+        scorpion = game.add.sprite(0, 0, 'redscorpion');
 
     game.physics.enable(scorpion, Phaser.Physics.ARCADE);
 
     scorpion.anchor.setTo(0.5, 0.5);
 
     scorpion.health = 10;
-    scorpion.speed = 20;
+    scorpion.speed = 30;
     scorpion.reverseSpeed = 30;
     scorpion.canMove = true;
-    scorpion.damage = 10;
+    scorpion.damage = 15;
     scorpion.timeOfLastHit = game.time.now;
     scorpion.timeOfLastMove = game.time.now;
     scorpion.platformPosition = 0;
@@ -110,7 +112,7 @@ function updateScorpion(){
 
     if(!this.canMove && game.time.now - this.timeOfLastHit > 1500){
         this.canMove = true;
-        this.speed = 20;
+        this.speed = 30 + (Math.random() * 10);
         if(Math.random() >= 0.5){
             this.speed *= -1;
         }
@@ -121,17 +123,17 @@ function updateScorpion(){
 }
 
 function scorpionDies(){
-    gui.upScore(10);
+    gui.upScore(15);
+    if(this.key == 'redscorpion')
+        gui.upScore(15);
 
     var prob = Math.random();
     if(items == null){
-        if(prob < 0.2)
-            items = addItem('shield');
-        else if( prob < 0.4)
-            items = addItem('velocity');
+        if(prob <= 0.1)         items = addItem('shield');
+        else if( prob <= 0.2)   items = addItem('velocity');
     }
 
-    scorpions.killSound.play();
+    
     this.kill();
 }
 
@@ -140,5 +142,7 @@ function scorpionTakeDamage(damage){
     if(this.health > 0)
         return;
 
+    scorpions.killSound.play();
+    this.speed = 30 + (Math.random() * 10);
     this.die();
 }

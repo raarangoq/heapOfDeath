@@ -68,8 +68,6 @@ function pauseGame(){
 			game.physics.arcade.isPaused = false;
 			
 			player.timeOfLastMove += (game.time.now - this.timeLastPause);
-
-
 			scorpions.addPauseTime(game.time.now - this.timeLastPause);
 		}
 		else{

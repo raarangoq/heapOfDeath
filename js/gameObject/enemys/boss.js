@@ -1,49 +1,70 @@
 
 
 function addBoss(){
-	boss = game.add.sprite(500, 330, 'boss');
-	game.physics.enable(boss, Phaser.Physics.ARCADE);
-	boss.body.gravity.y = 100;
+    boss = addScorpion('boss');
+    boss.scale.set(2);
 
-	boss.scale.setTo(0.4, 0.4);
-	boss.speed = 100;
-	boss.PointA = 150;
-    boss.PointB = 650;
-    if (Math.random() < 0.5)
-        boss.target = boss.PointB;
-    else
-        boss.target = boss.PointA;
+    boss.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
+    boss.play('walk');
 
-    boss.damage = 25;
+	boss.speed = 40;
+    boss.damage = 40;
+    boss.platformPosition = 0;
+    boss.body.velocity.y = 20;
 
     boss.killSound = game.add.audio('creature');
     boss.sound = game.add.audio('boss');
+    boss.hitSound = game.add.audio('rugido');
 
-    boss.move = moveBossToTarget;
     boss.update = updateBoss;
     boss.reset = resetBoss;
-
-    game.physics.arcade.moveToXY(boss, boss.target, boss.y, boss.speed);
+    boss.takeDamage = bossTakeDamage;
+    boss.addPauseTime = addBossPauseTime;
 }
-
-function moveBossToTarget(target){
-	this.target = target;
-    game.physics.arcade.moveToXY(this, this.target, this.y, this.speed);
-    this.sound.play();
-}
-
 
 function updateBoss(){
-	if(	Math.abs(this.x - this.PointA) <= 10 ){
-		this.move( this.PointB );
-	}
+    if( game.physics.arcade.isPaused || flags['winState'] || !game.global.is_playing)
+        return;
 
-    if( Math.abs(this.x - this.PointB) <= 10 ){
-        this.move( this.PointA );
+    if(this.body.velocity.y > 0){
+        this.body.acceleration.y = 0;
+        this.body.velocity.y = 0;
+
+        this.platformPosition = player.platformPosition;
+        this.platformPosition = this.addAngularPosition(180);
+
+        this.timeOfLastMove = game.time.now;
     }
+
+    if(!this.canMove && game.time.now - this.timeOfLastHit > 1500){
+        this.canMove = true;
+        this.speed = 40 + (Math.random() * 20);
+        if(Math.random() >= 0.5)    this.speed *= -1;
+    }
+    
+    this.setPosition();
+    this.move();
+
+    this.scale.set(this.scale.x * 1.5);
 }
 
-function resetBoss(){ 
-	boss.y = 330;
-    boss.x = 500;
+function bossTakeDamage(direction){
+    if(game.time.now - this.timeOfLastHit < this.timeBetweenHits)
+        return;
+    this.timeOfLastHit = game.time.now;
+
+    this.hitSound.play();
+
+    this.goBack(direction);
+}
+
+function resetBoss(){
+    this.platformPosition = player.platformPosition;
+    this.platformPosition = this.addAngularPosition(180);
+    this.body.velocity.y = 20;
+}
+
+function addBossPauseTime(value){
+    this.timeOfLastMove += value;
+    this.timeOfLastHit += value;
 }

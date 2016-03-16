@@ -16,6 +16,7 @@ var door;
 var stones;
 var scorpions;
 var boss;
+var basket;
 
 var heap;
 
@@ -36,6 +37,7 @@ var linkfail;
 
 var texta;
 var text;
+var textc;
 
 var node;
 
@@ -43,6 +45,18 @@ initMenu = {
 	create: function(){
 
 		image = game.add.sprite(0, 0, 'initmenu');
+		var text = game.add.text(400, 200, 'Scape the Heap.',
+		{ font: "64pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+			wordWrap: true, wordWrapWidth: 600, align: 'center'});
+		text.anchor.setTo(0.5, 0.5);
+		image.addChild(text);
+		text = game.add.text(400, 500, 'Presiona ENTER para jugar...',
+		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+			wordWrap: true, wordWrapWidth: 600, align: 'center'});
+		text.anchor.setTo(0.5, 0.5);
+		image.addChild(text);
+
+
 		game.global.is_playing = false;
 
 		this.addFlags();
@@ -69,6 +83,10 @@ hourglassback.scale.set(1.3);
 hourGlass.scale.set(1.3);
 	    hourGlass.kill();
 
+	    basket = game.add.sprite(400, 330, 'basket');
+	    basket.anchor.setTo(0.5, 0.5);
+	    basket.scale.set(2);
+	    basket.kill();
 
 	    scorpions = new addScorpionsGroup();
 	    scorpions.setAlive(false);
@@ -87,8 +105,6 @@ hourGlass.scale.set(1.3);
 	    explosions.createMultiple(15, 'kaboom');
 	    explosions.forEach(this.setupExplosion, this);
 
-text = game.add.text(20, 540, 'Cargando...', { fontSize: '16px', fill: '#ffffff'});
-//textb = game.add.text(20, 200, 'Cargando...', { fontSize: '16px', fill: '#ffffff'});
 
 
 //game.global.level = 5;
@@ -118,7 +134,11 @@ text = game.add.text(20, 540, 'Cargando...', { fontSize: '16px', fill: '#ffffff'
 //		alert(heap.toString());
 	   
 	    gui = new GUI();
-	    gui.setAlive(false);	
+	    gui.setAlive(false);
+
+textc = game.add.text(20, 540, 'Cargando...', { fontSize: '16px', fill: '#ffffff'});
+//textb = game.add.text(20, 200, 'Cargando...', { fontSize: '16px', fill: '#ffffff'});
+
 
 	},
 
@@ -182,10 +202,43 @@ text = game.add.text(20, 540, 'Cargando...', { fontSize: '16px', fill: '#ffffff'
 		linkfail.kill();
 
 	    winImage = game.add.sprite(0, 0, 'win');
+	    var text = game.add.text(400, 200, 'Ganaste!!',
+		{ font: "48pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+			wordWrap: true, wordWrapWidth: 600, align: 'center'});
+		text.anchor.setTo(0.5, 0.5);
+		winImage.addChild(text);
+	    text = game.add.text(400, 500, 'Presiona ENTER para ir al siguiente nivel.',
+		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+			wordWrap: true, wordWrapWidth: 600, align: 'center'});
+		text.anchor.setTo(0.5, 0.5);
+		winImage.addChild(text);
 	    winImage.visible = false;
+
 	    loseImage = game.add.sprite(0, 0, 'lose');
+	    text = game.add.text(400, 500, 'Presiona ENTER para volver a jugar...',
+		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+			wordWrap: true, wordWrapWidth: 600, align: 'center'});
+		text.anchor.setTo(0.5, 0.5);
+		loseImage.addChild(text);
 	    loseImage.visible = false;
+
 	    endImage = game.add.sprite(0, 0, 'end');
 	    endImage.visible = false;
+	    text = game.add.text(400, 200, '¡¡¡¡GANASTE!!!!',
+		{ font: "46pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 7,
+			wordWrap: true, wordWrapWidth: 600, align: 'center'});
+		text.anchor.setTo(0.5, 0.5);
+		endImage.addChild(text);
+	    text = game.add.text(400, 300, 'Haz completado todos los montículos,' +
+	    	'lástima que no lograras escapar a tiempo.',
+		{ font: "24pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+			wordWrap: true, wordWrapWidth: 600, align: 'center'});
+		text.anchor.setTo(0.5, 0.5);
+		endImage.addChild(text);
+	    text = game.add.text(400, 500, 'Presiona ENTER para volver a jugar.',
+		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+			wordWrap: true, wordWrapWidth: 600, align: 'center'});
+		text.anchor.setTo(0.5, 0.5);
+		endImage.addChild(text);
 	},
 }

@@ -8,8 +8,8 @@ function addRedScorpion () {
 
     scorpion.play('walk');
 
-	scorpion.damage = 20;
-    scorpion.speed = 30;
+	scorpion.damage = 30;
+    scorpion.speed = 40;
     scorpion.reverseSpeed = 45;
     scorpion.health = 30;
     scorpion.timeBetweenHits = 2000;
@@ -28,7 +28,6 @@ function addRedScorpion () {
 }
 
 function makeScorpionToSegment(){
-    gui.upScore(15);
     this.play('close');
     this.healthBar.visible = false;
     this.timeDeath = game.time.now;
@@ -59,7 +58,7 @@ function updateRedScorpion(){
             this.play('open');
         if(game.time.now - this.timeDeath > 7000){
             this.health = 30;
-            this.speed = 30;
+            this.speed = 40 + (Math.random() * 20);
             this.play('walk');
             this.timeOfLastMove = game.time.now;
             if(Math.random() >= 0.5){
@@ -85,7 +84,7 @@ function updateRedScorpion(){
     
     if(!this.canMove && game.time.now - this.timeOfLastHit > 1500){
         this.canMove = true;
-        this.speed = 30;
+        this.speed = 40 + (Math.random() * 20);
         if(Math.random() >= 0.5)    this.speed *= -1;
     }
     
@@ -98,6 +97,9 @@ function redScorpionTakeDamage(damage, direction){
     if(game.time.now - this.timeOfLastHit < this.timeBetweenHits)
         return;
     this.timeOfLastHit = game.time.now;
+
+    if(this.health > 0)
+        scorpions.killSound.play();
 
     this.health -= damage;
     this.healthBar.width = 32 * ( this.health / 30);
