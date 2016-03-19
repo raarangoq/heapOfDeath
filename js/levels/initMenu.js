@@ -62,6 +62,11 @@ initMenu = {
 		this.addFlags();
 		
 		sky = game.add.sprite(0, 0, 'sky');
+		text = game.add.text(400, 500, 'Presiona ENTER para empezar el juego...',
+		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+			wordWrap: true, wordWrapWidth: 600, align: 'center'});
+		text.anchor.setTo(0.5, 0.5);
+		sky.addChild(text);
 		sky.kill();
 
 		// GameObjects ever in game
@@ -75,15 +80,15 @@ initMenu = {
 
 	    hourglassback = game.add.sprite(400, 234, 'hourglassback');
 		hourglassback.anchor.set(0.5);
-hourglassback.scale.set(1.3);
+		hourglassback.scale.set(1.3);
 		hourglassback.kill();
 
 	    hourGlass = game.add.sprite(400, 260, 'hourglass');
 	    hourGlass.anchor.set(0.5);
-hourGlass.scale.set(1.3);
+		hourGlass.scale.set(1.3);
 	    hourGlass.kill();
 
-	    basket = game.add.sprite(400, 330, 'basket');
+	    basket = game.add.sprite(400, 270, 'basket');
 	    basket.anchor.setTo(0.5, 0.5);
 	    basket.scale.set(2);
 	    basket.kill();
@@ -230,7 +235,7 @@ textc = game.add.text(20, 540, 'Cargando...', { fontSize: '16px', fill: '#ffffff
 		text.anchor.setTo(0.5, 0.5);
 		endImage.addChild(text);
 	    text = game.add.text(400, 300, 'Haz completado todos los montículos,' +
-	    	'lástima que no lograras escapar a tiempo.',
+	    	'lástima que esa bruja te tratara tan mal.',
 		{ font: "24pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
 			wordWrap: true, wordWrapWidth: 600, align: 'center'});
 		text.anchor.setTo(0.5, 0.5);

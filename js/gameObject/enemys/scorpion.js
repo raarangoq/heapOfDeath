@@ -14,7 +14,7 @@ function addScorpion(type){
     scorpion.anchor.setTo(0.5, 0.5);
 
     scorpion.health = 10;
-    scorpion.speed = 30;
+    scorpion.speed = 20;
     scorpion.reverseSpeed = 30;
     scorpion.canMove = true;
     scorpion.damage = 15;
@@ -127,6 +127,8 @@ function scorpionDies(){
     if(this.key == 'redscorpion')
         gui.upScore(15);
 
+    this.y = 0;
+
     var prob = Math.random();
     if(items == null){
         if(prob <= 0.1)         items = addItem('shield');
@@ -143,6 +145,6 @@ function scorpionTakeDamage(damage){
         return;
 
     scorpions.killSound.play();
-    this.speed = 30 + (Math.random() * 10);
+    this.speed = 20 + (Math.random() * 10);
     this.die();
 }

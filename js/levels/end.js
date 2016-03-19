@@ -24,7 +24,7 @@ end = {
     linkfail.scale.setTo(0.2, 0.2);
     linkfail.visible = false;
 
-    ground.revive();
+//    ground.revive();
 
 
     medusa.revive();
@@ -128,14 +128,14 @@ end = {
 
         if(value == 1){
             dialog.visible = true;
-            texta.text = 'Por fin he llegado al final de la cueva, es hora de buscar esos tesoros.';
+            texta.text = 'Parece que las bestias han sido aprisionadas de nuevo, ya puedo tomar un descanso.';
         }
         else if(value == 2){
             dialog.position.setTo(230, 330);
-            texta.text = 'Humano, tu no debes estar aquí. \n!Vete¡';
+            texta.text = 'Buen trabajo humano, ya puedes irte.';
         }
         else if(value == 3){
-            texta.text = 'Ganaste!!!\nEs una lástima que esa bruja te expulsara de la torre';
+            texta.text = '';
             texta.fontSize = 32;
             dialog.position.setTo(300, 200);
         }

@@ -67,6 +67,7 @@ function scorpionsGroupAttack(){
 		return;
 
     scorpion.reset(400, 0);
+    scorpion.body.velocity.y = 20;
     scorpion.body.acceleration.y = 20;
     scorpion.scale.set(0.8);
     scorpion.platformPosition = 0;
@@ -80,6 +81,7 @@ function scorpionsGroupAttack(){
         scorpion.healthBar.revive();
         scorpion.health = 30;
         scorpion.healthBar.width = 32;
+        scorpion.body.rotation = 0;
         scorpion.speed = 30;
         scorpion.play('walk');
     }
@@ -92,14 +94,17 @@ function scorpionsGroupAttack(){
 function setScorpionsDrawOrder(value){
 	for(var i=0; i<this.array.length; i++){
 	    if(value){
-	        if(this.array[i].y >= 380)
+	        if(this.array[i].y >= 380 || this.array[i].body.velocity.y < 0)
 	            this.array[i].bringToTop();
 	    }
 	    else{
-	        if(this.array[i].y < 380)
+	        if(this.array[i].y < 380 || this.array[i].body.velocity.y > 0)
 	            this.array[i].bringToTop();
 	    }
 	}
+
+
+
 	if(game.global.level == 5){
 		if(value){
 			if(boss.y >= 380)	boss.bringToTop();

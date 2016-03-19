@@ -12,6 +12,7 @@ function addHeap(){
 
 	this.pool = [];
 	this.poolLenght = [0, 3, 7, 7, 15, 15];
+	this.initialState = [0, 0, 3, 2, 9, 8];
 
 //	this.buildHeap = buildHeap;
 	this.percolatingDown = percolatingDown;

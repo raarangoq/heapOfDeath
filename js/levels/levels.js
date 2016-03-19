@@ -36,7 +36,7 @@ endImage.visible = false;
 
 
     heap.restart();
-    for(var i=0; i<heap.poolLenght[game.global.level] - 1; i++)
+    for(var i=0; i< heap.initialState[game.global.level] ; i++)
         heap.insert(heap.takeId());
 
 //items = addItem('shield');
@@ -97,9 +97,6 @@ game.time.advancedTiming = true;
                         this.attackHitBoss();
                     }
                 }
-
-                
-                
 
                 if( keyboard.enterKey() )
                     gui.pauseGame();
@@ -167,7 +164,7 @@ game.time.advancedTiming = true;
     },
 
     bossHitPlayer: function(){
-        if(!game.physics.arcade.overlap(player, boss))
+        if(boss.health <= 0 || !game.physics.arcade.overlap(player, boss))
             return;
 
         player.hitPlayer(boss);
@@ -175,10 +172,13 @@ game.time.advancedTiming = true;
     },
 
     attackHitBoss: function(){
+         if(!player.is_attacking || boss.distanceToPlayer() > 30)
+            return;
+
         if(!game.physics.arcade.overlap(player.attack, boss))
             return;
 
-        boss.takeDamage(player.direction);
+        boss.takeDamage(player.hitDamage, player.direction);
     },
 
 
@@ -227,8 +227,8 @@ game.time.advancedTiming = true;
     render: function() {
 
 //textb.text = game.time.fps;
-textc.text = boss.platformPosition;
-game.debug.body(boss);
+textc.text = scorpions.array[0].y + '\n' + scorpions.array[0].body.velocity.y;
+//game.debug.body(boss);
 
 
     },
@@ -268,10 +268,10 @@ game.debug.body(boss);
         if(game.global.level <= 5)
             game.state.start('levels', false);
         else {
-            //player.kill();
-            //game.state.start('end', false);
-            game.global.level = 1;
-            game.state.start('levels', false);
+            player.kill();
+            game.state.start('end', false);
+            //game.global.level = 1;
+            //game.state.start('levels', false);
         }
 
     },

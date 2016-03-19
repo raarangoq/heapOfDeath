@@ -5,21 +5,39 @@ function addBoss(){
     boss.scale.set(2);
 
     boss.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
+    boss.animations.add('close', [5, 6, 7, 8, 9], 6);
+    boss.animations.add('open', [9, 8, 7, 6, 5], 6);
     boss.play('walk');
 
-	boss.speed = 40;
+	boss.speed = 30;
     boss.damage = 40;
+    boss.health = 60;
     boss.platformPosition = 0;
     boss.body.velocity.y = 20;
+    boss.timeBetweenHits = 2000;
+    boss.timeDeath = game.time.now;
+
+    boss.healthBar = game.add.sprite(0, -15, 'enemyBar');
+    boss.healthBar.anchor.setTo(0.5, 0.5);
+    boss.addChild(boss.healthBar);
+    boss.healthBar.width = 32;
 
     boss.killSound = game.add.audio('creature');
     boss.sound = game.add.audio('boss');
     boss.hitSound = game.add.audio('rugido');
 
+    boss.makeSegment = makeBossToSegment;
     boss.update = updateBoss;
     boss.reset = resetBoss;
     boss.takeDamage = bossTakeDamage;
     boss.addPauseTime = addBossPauseTime;
+}
+
+function makeBossToSegment(){
+    this.play('close');
+    this.healthBar.visible = false;
+    this.timeDeath = game.time.now;
+    this.speed = 0;
 }
 
 function updateBoss(){
@@ -36,9 +54,26 @@ function updateBoss(){
         this.timeOfLastMove = game.time.now;
     }
 
+    if(this.health <= 0){
+        if(game.time.now - this.timeDeath > 4000)
+            this.play('open');
+        if(game.time.now - this.timeDeath > 7000){
+            this.health = 60;
+            this.speed = 30 + (Math.random() * 10);
+            this.play('walk');
+            this.timeOfLastMove = game.time.now;
+            if(Math.random() >= 0.5){
+                this.speed *= -1;
+            }
+            this.healthBar.visible = true;
+            this.healthBar.width = 32 * ( this.health / 60);
+            this.canMove = true;
+        }
+    }
+
     if(!this.canMove && game.time.now - this.timeOfLastHit > 1500){
         this.canMove = true;
-        this.speed = 40 + (Math.random() * 20);
+        this.speed = 30 + (Math.random() * 10);
         if(Math.random() >= 0.5)    this.speed *= -1;
     }
     
@@ -48,20 +83,29 @@ function updateBoss(){
     this.scale.set(this.scale.x * 1.5);
 }
 
-function bossTakeDamage(direction){
+function bossTakeDamage(damage, direction){
     if(game.time.now - this.timeOfLastHit < this.timeBetweenHits)
         return;
     this.timeOfLastHit = game.time.now;
 
-    this.hitSound.play();
+    if(this.health > 0)
+        this.hitSound.play();
 
-    this.goBack(direction);
+    this.health -= damage;
+    this.healthBar.width = 32 * ( this.health / 60);
+
+    if(this.health > 0){
+        this.goBack(direction);
+    }else{
+        this.makeSegment();
+    }
 }
 
 function resetBoss(){
     this.platformPosition = player.platformPosition;
     this.platformPosition = this.addAngularPosition(180);
     this.body.velocity.y = 20;
+    this.health = 60;
 }
 
 function addBossPauseTime(value){

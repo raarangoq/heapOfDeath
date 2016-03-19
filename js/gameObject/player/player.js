@@ -304,7 +304,6 @@ function updatePlayer(){
 	}
 
 	this.blood.update();
-
 	this.movePlayer();
 	this.attacking();
 
@@ -318,7 +317,6 @@ function updatePlayer(){
         	this.speed = this.SPEED_ATTACKING;
         gui.changeAbility(false, "velocity");
     }  
-
 
     if(this.shield.visible){
     	var time =  Math.floor((10000 - (game.time.now - this.shield.initTime)) / 1000);
@@ -342,21 +340,16 @@ function updatePlayer(){
     else
     	basket.frame = 2;
 
-	
 	if(keyboard.spaceKey() && !this.is_attacking){
 		if(!this.touchingSegment && !this.segment)
 			this.toAttack();
 		else{
 			if(this.segment){
 				if(this.y < 300){
-					this.segment.die();
+					this.segment.goUp();
+					
 					this.segment = null;
 					this.touchingSegment = null;
-					var id = heap.takeId();
-					heap.insert(id);
-
-					if(heap.size == heap.poolLenght[game.global.level])
-						this.setWinState();
 				}
 			}
 			else if(this.touchingSegment){
@@ -365,8 +358,6 @@ function updatePlayer(){
 			}
 		}
 	}
-
-	
 }
 
 function activateAbility(type){
