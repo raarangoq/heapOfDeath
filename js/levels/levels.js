@@ -227,7 +227,7 @@ game.time.advancedTiming = true;
     render: function() {
 
 //textb.text = game.time.fps;
-textc.text = scorpions.array[0].y + '\n' + scorpions.array[0].body.velocity.y;
+//textc.text = scorpions.array[0].y + '\n' + scorpions.array[0].body.velocity.y;
 //game.debug.body(boss);
 
 

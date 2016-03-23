@@ -224,7 +224,8 @@ function movePlayer(){
 	// Al presionar una tecla, el jugador se mueve y se activa una animacion
 	if(keyboard.leftKey()){
 		// Mover a la izquierda
-		this.movePlatformPosition(-this.speed);
+		if(this.body.touching.down)
+			this.movePlatformPosition(-this.speed);
 
 		this.playAnimations('left');
 		if(!this.is_attacking) 
@@ -232,7 +233,8 @@ function movePlayer(){
 	}
 	else if(keyboard.rightKey()){
 		// Mover a la derecha
-		this.movePlatformPosition(this.speed);
+		if(this.body.touching.down)
+			this.movePlatformPosition(this.speed);
 
 		this.playAnimations("right");
 		if(!this.is_attacking) 
@@ -247,7 +249,7 @@ function movePlayer(){
 
 	
 	if(keyboard.upKey()){
-		if (player.body.touching.down){
+		if (player.body.touching.down && this.segment){
 			this.body.velocity.y = -this.speed * 7;
 			if(this.speed == this.highSpeed)
 				this.body.velocity.y = -this.speed * 4.5;

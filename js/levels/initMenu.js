@@ -141,7 +141,7 @@ initMenu = {
 	    gui = new GUI();
 	    gui.setAlive(false);
 
-textc = game.add.text(20, 540, 'Cargando...', { fontSize: '16px', fill: '#ffffff'});
+//textc = game.add.text(20, 540, 'Cargando...', { fontSize: '16px', fill: '#ffffff'});
 //textb = game.add.text(20, 200, 'Cargando...', { fontSize: '16px', fill: '#ffffff'});
 
 
