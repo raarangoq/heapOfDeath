@@ -16,9 +16,9 @@ loading = {
     
 
     game.load.image('enemyBar', 'assets/pics/enemys/enemyBar.png');
-    game.load.image('scorpion', 'assets/pics/enemys/segment.png');
+    game.load.spritesheet('scorpion', 'assets/pics/enemys/scorpion.png', 46, 41);
     game.load.spritesheet('redscorpion', 'assets/pics/enemys/redscorpion.png', 46, 41);
-    game.load.image('boss', 'assets/pics/enemys/boss.png');
+    game.load.spritesheet('boss', 'assets/pics/enemys/boss.png', 46, 41);
     
     game.load.image('node', 'assets/pics/node.png');
 

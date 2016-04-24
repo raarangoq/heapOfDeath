@@ -4,10 +4,10 @@ function addBoss(){
     boss = addScorpion('boss');
     boss.scale.set(2);
 
-    boss.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
-    boss.animations.add('close', [5, 6, 7, 8, 9], 6);
-    boss.animations.add('open', [9, 8, 7, 6, 5], 6);
-    boss.play('walk');
+    //boss.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
+    //boss.animations.add('close', [5, 6, 7, 8, 9], 6);
+    //boss.animations.add('open', [9, 8, 7, 6, 5], 6);
+    //boss.play('walk');
 
 	boss.speed = 30;
     boss.damage = 40;

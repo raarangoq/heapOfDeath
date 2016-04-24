@@ -34,6 +34,8 @@ function addPausePage1(){
 
 function addPausePage2(){
 	var page = game.add.sprite(100, 130, 'scorpion');
+	page.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
+	page.play('walk');
 	var text = game.add.text(50, 0, 
 		'Escarabajo: pequeño bicho que inflinge daño leve, con un solo ataque puedes destruirlo.', 
 		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
@@ -94,6 +96,23 @@ function addPausePage3(){
 		'Vida: Dispones de tres vidas.', 
 		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
 		wordWrap: true, wordWrapWidth: 600});
+	page.addChild(text);
+
+	page.setAlive = setPageAlive;
+	return page;
+}
+
+function addPausePage4(){
+	var page = game.add.sprite(100, 200, 'boss');
+	page.scale.set(2);
+	page.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
+	page.play('walk');
+	var text = game.add.text(50, 0, 
+		'Rey escarabajo: Gran escarabajo que infringe gran daño, no morirá, ' + 
+			'pero puedes atacarlo para incapacitarlo un momento.', 
+		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
+		wordWrap: true, wordWrapWidth: 450});
+	text.scale.set(0.5);
 	page.addChild(text);
 
 	page.setAlive = setPageAlive;

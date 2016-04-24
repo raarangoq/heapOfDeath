@@ -19,6 +19,7 @@ function addPause(){
 	pause_menu.pages[1] = addPausePage1();
 	pause_menu.pages[2] = addPausePage2();
 	pause_menu.pages[3] = addPausePage3();
+	pause_menu.pages[4] = addPausePage4();
 
 	pause_menu.showPage = showPausePage;
 

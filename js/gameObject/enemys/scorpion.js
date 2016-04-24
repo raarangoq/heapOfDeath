@@ -7,9 +7,15 @@ function addScorpion(type){
     else if(type == 'red')
         scorpion = game.add.sprite(0, 0, 'redscorpion');
     else if(type == 'boss')
-        scorpion = game.add.sprite(0, 0, 'redscorpion');
+        scorpion = game.add.sprite(0, 0, 'boss');
 
     game.physics.enable(scorpion, Phaser.Physics.ARCADE);
+
+    scorpion.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
+    scorpion.animations.add('close', [5, 6, 7, 8, 9], 6);
+    scorpion.animations.add('open', [9, 8, 7, 6, 5], 6);
+
+    scorpion.play('walk');
 
     scorpion.anchor.setTo(0.5, 0.5);
 

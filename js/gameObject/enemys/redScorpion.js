@@ -2,11 +2,11 @@
 function addRedScorpion () {
 	var scorpion = addScorpion('red');
 
-    scorpion.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
-    scorpion.animations.add('close', [5, 6, 7, 8, 9], 6);
-    scorpion.animations.add('open', [9, 8, 7, 6, 5], 6);
+    //scorpion.animations.add('walk', [0, 1, 2, 3, 4], 15, true);
+    //scorpion.animations.add('close', [5, 6, 7, 8, 9], 6);
+    //scorpion.animations.add('open', [9, 8, 7, 6, 5], 6);
 
-    scorpion.play('walk');
+    //scorpion.play('walk');
 
 	scorpion.damage = 30;
     scorpion.speed = 30;
