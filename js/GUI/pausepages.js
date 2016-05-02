@@ -57,7 +57,7 @@ function addPausePage2(){
 	page.addChild(image);
 	text = game.add.text(50, 200, 
 		'Caparazón: escarabajo rojo que se defiende de los ataques. Tómalo con ESPACIO, luego salta, ' + 
-		'y cuando estés en lo más alto, presiona ESPACIO para introducirlo en el reloj de arena.', 
+		'y cuando estés en lo más alto, presiona ESPACIO para arrojarlo al reloj de arena.', 
 		{ font: "16pt ferney", fill: '#fff', stroke: '#000000', strokeThickness: 3,
 		wordWrap: true, wordWrapWidth: 600});
 	page.addChild(text);

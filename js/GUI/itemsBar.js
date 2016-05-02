@@ -29,7 +29,7 @@ function updateItemsBar(){
 
 function itemsBarSetDrawOrder(){
 	this.itemsBar.bringToTop();
-//	this.itemImage['light'].bringToTop();
+	this.itemImage['shield'].bringToTop();
 	this.itemImage['velocity'].bringToTop();
 }
 
