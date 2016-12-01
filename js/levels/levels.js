@@ -8,8 +8,8 @@ var textb;
 levels = {
     create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    
-endImage.visible = false; 
+
+endImage.visible = false;
 
     background.revive();
 
@@ -18,7 +18,7 @@ endImage.visible = false;
 
     gui.setAlive(true);
 
- 
+
 //    stones.reset();
 //    scorpions.reset();
 
@@ -40,7 +40,7 @@ endImage.visible = false;
         heap.insert(heap.takeId());
 
 //items = addItem('shield');
-    
+
 
     timeOfWinState = game.time.now;
 
@@ -59,7 +59,7 @@ game.time.advancedTiming = true;
     update: function() {
         gui.update();
 
-        game.physics.arcade.collide(player, floor);   
+        game.physics.arcade.collide(player, floor);
 
         if (!flags['winState']){
             if (player.alive){
@@ -80,7 +80,7 @@ game.time.advancedTiming = true;
                 loseImage.bringToTop();
 
                 scorpions.update();
-                
+
        //         game.physics.arcade.overlap(player, stones, this.playerHitStone, null, this);
                 for(var i=0; i<scorpions.array.length; i++){
                     if(scorpions.array[i].alive){
@@ -120,8 +120,8 @@ game.time.advancedTiming = true;
 
             if(game.global.level == 5){
       //          game.physics.arcade.overlap(boss, stones, this.killBoss, null, this);
-                    
-                
+
+
             }
         }
     },
@@ -189,9 +189,9 @@ game.time.advancedTiming = true;
         boom_sound.play();
     },
 
-   
+
     playWinAnimation: function(){
-        if (game.global.level <= 5){          
+        if (game.global.level <= 5){
             if(game.time.now - timeOfWinState < 2000){ //wait
                 player.body.velocity.x = 0;
                 player.animations.stop();
@@ -211,11 +211,11 @@ game.time.advancedTiming = true;
                 }
             }
             else{
-                winImage.visible = true;              
+                winImage.visible = true;
             }
         }
         else{
-//         
+//
         }
     },
 
@@ -270,6 +270,13 @@ game.time.advancedTiming = true;
         else {
             player.kill();
             game.state.start('end', false);
+
+            ScormProcessSetValue("cmi.core.score.min", 0.0000);
+            ScormProcessSetValue("cmi.core.score.max", 100.0000);
+            ScormProcessSetValue("cmi.core.score.raw", 100);
+            if( ScormProcessGetValue("cmi.comments") < gui.score.value )
+                ScormProcessSetValue("cmi.comments", gui.score.value);
+
             //game.global.level = 1;
             //game.state.start('levels', false);
         }
